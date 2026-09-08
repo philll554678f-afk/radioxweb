@@ -160,6 +160,368 @@
     }
 }
 
+  /* ── Overlay backdrop ────────────────────────────────── */
+  .sp-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000000;
+    background: rgba(0, 0, 0, 0.70);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .sp-overlay.sp-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ── Popup box ───────────────────────────────────────── */
+  .sp-box {
+    position: relative; /* anchor for the close button */
+    display: flex;
+    align-items: stretch;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    max-width: 680px;
+    width: 100%;
+    border: 1px solid #e0e0f8;
+    box-shadow:
+      0 32px 80px rgba(0, 0, 235, 0.18),
+      0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(28px) scale(0.95);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .sp-overlay.sp-active .sp-box {
+    transform: translateY(0) scale(1);
+  }
+
+  /* ── Close (×) button — light & appears 1s after popup shows ── */
+  .sp-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.38);
+    font-family: system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, background 0.15s ease, color 0.15s ease;
+  }
+
+  .sp-close.sp-close-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sp-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* ── LEFT — photo panel ──────────────────────────────── */
+  .sp-left {
+    background: linear-gradient(160deg, #0000eb 0%, #0000c0 100%);
+    padding: 36px 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 190px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  /* Agent image circle */
+  .sp-img-wrap {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.9);
+    box-shadow:
+      0 0 0 6px rgba(255, 255, 255, 0.2),
+      0 8px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .sp-agent-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 50%;
+    display: block;
+  }
+
+  /* Pulsing online indicator */
+  .sp-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #90ff90;
+    margin-top: 4px;
+  }
+
+  .sp-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    flex-shrink: 0;
+    animation: sp-pulse 2s infinite;
+  }
+
+  @keyframes sp-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+    60%       { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+  }
+
+  .sp-name {
+    font-family: system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .sp-role {
+    font-family: system-ui, sans-serif;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  /* ── RIGHT — content panel ───────────────────────────── */
+  .sp-right {
+    padding: 36px 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    background: #ffffff;
+  }
+
+  /* Badge */
+  .sp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eff0ff;
+    border: 1px solid rgba(0, 0, 235, 0.22);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-family: system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0000eb;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+
+  /* Headline */
+  .sp-title {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: #111111;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .sp-title span { color: #0000eb; }
+
+  /* Body text */
+  .sp-body {
+    font-family: system-ui, sans-serif;
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.72;
+    margin-bottom: 24px;
+  }
+
+  /* ── Call button ─────────────────────────────────────── */
+  .sp-call-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #0000eb;
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-decoration: none;
+    margin-bottom: 14px;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 6px 24px rgba(0, 0, 235, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sp-call-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+    border-radius: 10px;
+  }
+
+  .sp-call-btn:hover {
+    background: #0000cc;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(0, 0, 235, 0.48);
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .sp-call-icon {
+    font-size: 1.5rem;
+    animation: sp-ring 2.8s ease infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes sp-ring {
+    0%, 85%, 100% { transform: rotate(0deg); }
+    88%            { transform: rotate(-14deg); }
+    92%            { transform: rotate(14deg); }
+    96%            { transform: rotate(-8deg); }
+  }
+
+  .sp-call-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sp-call-label {
+    font-family: system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .sp-call-num {
+    font-family: system-ui, sans-serif;
+    font-size: 1.28rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  /* Footer trust note */
+  .sp-footer-note {
+    font-family: system-ui, sans-serif;
+    font-size: 0.73rem;
+    color: #aaa;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .sp-tick { color: #0000eb; font-weight: 700; }
+
+  /* ══ RESPONSIVE ════════════════════════════════════════ */
+
+  @media (max-width: 680px) {
+    .sp-overlay {
+      padding: 14px;
+      padding-bottom: 170px;
+      align-items: flex-end;
+      overflow-y: auto;
+    }
+
+    .sp-box {
+      flex-direction: column;
+      border-radius: 16px;
+      max-width: 100%;
+      max-height: calc(100svh - 130px);
+      overflow-y: auto;
+    }
+
+    /* Photo panel → horizontal strip at top */
+    .sp-left {
+      flex-direction: row;
+      padding: 18px 20px;
+      min-width: unset;
+      gap: 14px;
+      justify-content: flex-start;
+      text-align: left;
+      background: #243c51;
+    }
+
+    .sp-img-wrap {
+      width: 160px;
+      height: 160px;
+      border-width: 2px;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.25), 0 4px 14px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+
+    .sp-left-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      justify-content: center;
+    }
+
+    .sp-right {
+      padding: 22px 20px 26px;
+    }
+
+    .sp-title {
+      font-size: 1.45rem;
+    }
+
+    .sp-badge {
+      font-size: 0.66rem;
+      padding: 4px 11px;
+    }
+
+    .sp-call-btn { padding: 13px 16px; }
+    .sp-call-num { font-size: 1.1rem; }
+    .sp-body     { margin-bottom: 18px; }
+  }
+
+  @media (max-width: 380px) {
+    .sp-title    { font-size: 1.25rem; }
+    .sp-call-num { font-size: 1rem; }
+    .sp-right    { padding: 18px 16px 22px; }
+  }
+	  
+
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -435,5 +797,75 @@
   </div>
 </footer>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+
+<!-- ═══════════════════════════════════════════════════
+     SUPPORT POPUP — appears 2 sec after page load
+     IMAGE: add file named "support-agent.jpg" to same folder
+═══════════════════════════════════════════════════ -->
+<div class="sp-overlay" id="supportPopup">
+  <div class="sp-box">
+
+    <!-- LEFT — Agent photo -->
+    <div class="sp-left">
+      <div class="sp-img-wrap">
+        <!-- ADD YOUR IMAGE: save as support-agent.jpg in same folder -->
+        <img src="support-agent.jpg" alt="Radio Support Specialist" class="sp-agent-img"/>
+      </div>
+      <div class="sp-left-info">
+        <div class="sp-status">
+          <span class="sp-dot"></span>
+          <span>Available Now</span>
+        </div>
+        <p class="sp-name">Radio Specialist</p>
+        <p class="sp-role">Certified Tech Support</p>
+      </div>
+    </div>
+
+    <!-- RIGHT — Content -->
+    <div class="sp-right">
+      <div class="sp-badge">&#128225; Live Expert Support</div>
+      <h2 class="sp-title">Do You Need<br><span>Expert Radio Help?</span></h2>
+      <p class="sp-body">Our satellite radio specialists are standing by — activation, signal issues, billing, and subscriptions resolved fast.</p>
+
+      <a href="tel:+18772616792" class="sp-call-btn">
+        <span class="sp-call-icon">&#128222;</span>
+        <span class="sp-call-text">
+          <span class="sp-call-label">Call Our Experts</span>
+          <span class="sp-call-num">+1 (877) 261-6792</span>
+        </span>
+      </a>
+
+      <p class="sp-footer-note">
+        <span class="sp-tick">&#10003;</span> 24/7 &nbsp;&nbsp;
+        <span class="sp-tick">&#10003;</span> Free Consultation &nbsp;&nbsp;
+        <span class="sp-tick">&#10003;</span> No Wait Time
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Show popup after 2 seconds
+  // Also hides the callbar so it doesn't overlap the popup on mobile
+  setTimeout(function() {
+    var popup   = document.getElementById('supportPopup');
+    var callbar = document.querySelector('.callbar');
+
+    // Show popup, hide callbar beneath it
+    popup.classList.add('sp-active');
+    if (callbar) callbar.style.display = 'none';
+
+    // When user taps the call button, callbar reappears
+    var callBtn = popup.querySelector('.sp-call-btn');
+    if (callBtn) {
+      callBtn.addEventListener('click', function() {
+        popup.classList.remove('sp-active');
+        if (callbar) callbar.style.display = '';
+      });
+    }
+  }, 2000);
+</script>
+	
 </body>
 </html>
