@@ -748,13 +748,6 @@
   </div>
 </section>
 
-<div class="callbar">
-  <a href="tel:+18772616792">
-    <span class="t1">Need Help? Talk to an Expert</span>
-    <span class="t2" style="color:#ff0000">+1 (877) 261-6792</span>
-  </a>
-</div>
-
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
@@ -778,7 +771,6 @@
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="tel:18663816229" style="font-weight:700;">+1 (877) 261-6792</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -797,75 +789,6 @@
   </div>
 </footer>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
-
-<!-- ═══════════════════════════════════════════════════
-     SUPPORT POPUP — appears 2 sec after page load
-     IMAGE: add file named "support-agent.jpg" to same folder
-═══════════════════════════════════════════════════ -->
-<div class="sp-overlay" id="supportPopup">
-  <div class="sp-box">
-
-    <!-- LEFT — Agent photo -->
-    <div class="sp-left">
-      <div class="sp-img-wrap">
-        <!-- ADD YOUR IMAGE: save as support-agent.jpg in same folder -->
-        <img src="support-agent.jpg" alt="Radio Support Specialist" class="sp-agent-img"/>
-      </div>
-      <div class="sp-left-info">
-        <div class="sp-status">
-          <span class="sp-dot"></span>
-          <span>Available Now</span>
-        </div>
-        <p class="sp-name">Radio Specialist</p>
-        <p class="sp-role">Certified Tech Support</p>
-      </div>
-    </div>
-
-    <!-- RIGHT — Content -->
-    <div class="sp-right">
-      <div class="sp-badge">&#128225; Live Expert Support</div>
-      <h2 class="sp-title">Do You Need<br><span>Expert Radio Help?</span></h2>
-      <p class="sp-body">Our satellite radio specialists are standing by — activation, signal issues, billing, and subscriptions resolved fast.</p>
-
-      <a href="tel:+18772616792" class="sp-call-btn">
-        <span class="sp-call-icon">&#128222;</span>
-        <span class="sp-call-text">
-          <span class="sp-call-label">Call Our Experts</span>
-          <span class="sp-call-num">+1 (877) 261-6792</span>
-        </span>
-      </a>
-
-      <p class="sp-footer-note">
-        <span class="sp-tick">&#10003;</span> 24/7 &nbsp;&nbsp;
-        <span class="sp-tick">&#10003;</span> Free Consultation &nbsp;&nbsp;
-        <span class="sp-tick">&#10003;</span> No Wait Time
-      </p>
-    </div>
-
-  </div>
-</div>
-
-<script>
-  // Show popup after 2 seconds
-  // Also hides the callbar so it doesn't overlap the popup on mobile
-  setTimeout(function() {
-    var popup   = document.getElementById('supportPopup');
-    var callbar = document.querySelector('.callbar');
-
-    // Show popup, hide callbar beneath it
-    popup.classList.add('sp-active');
-    if (callbar) callbar.style.display = 'none';
-
-    // When user taps the call button, callbar reappears
-    var callBtn = popup.querySelector('.sp-call-btn');
-    if (callBtn) {
-      callBtn.addEventListener('click', function() {
-        popup.classList.remove('sp-active');
-        if (callbar) callbar.style.display = '';
-      });
-    }
-  }, 2000);
-</script>
 	
 </body>
 </html>
